@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список заказов</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Список заказов</h2>
+
+<div>
+    <label for="sort">Сортировать по:</label>
+    <select id="sort" onchange="sortTable()">
+        <option value="weight">Вес</option>
+        <option value="date">Дата</option>
+    </select>
+</div>
+
+<div>
+    <label for="filter">Фильтр по дате:</label>
+    <input type="date" id="dateFilter" onchange="filterTable()">
+</div>
+
+<ul id="orderList"></ul>
+
+<table id="orderTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Почтовый адрес</th>
+            <th>Вес (кг)</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<script>
+    const orders = [];
+
+    function displayOrders() {
+        const sortField = document.getElementById("sort").value;
+        const dateFilter = document.getElementById("dateFilter").value;
+        const tableBody = document.getElementById("tableBody");
+        const orderList = document.getElementById("orderList");
+
+        // Очищаем таблицу и список перед обновлением
+        tableBody.innerHTML = "";
+        orderList.innerHTML = "";
+
+        // Фильтрация и сортировка данных
+        const filteredOrders = orders.filter(order => {
+            if (dateFilter !== "") {
+                const orderDate = new Date(order.date);
+                const filterDate = new Date(dateFilter);
+
+                // Сравнение дат с учетом времени
+                if (orderDate.getTime() !== filterDate.getTime()) {
+                    return false;
+                }
+            }
+            return true;
+        }).sort((a, b) => {
+            // Сортировка по выбранному полю
+            if (a[sortField] < b[sortField]) return -1;
+            if (a[sortField] > b[sortField]) return 1;
+            return 0;
+        });
+
+        // Отображение данных в таблице и списке
+        filteredOrders.forEach(order => {
+            const row = tableBody.insertRow(-1);
+            row.insertCell(0).textContent = order.order_id;
+            row.insertCell(1).textContent = order.delivery_address;
+            row.insertCell(2).textContent = order.weight;
+            row.insertCell(3).textContent = order.date;
+
+            const listItem = document.createElement("li");
+            listItem.textContent = `ID: ${order.order_id}, Адрес: ${order.delivery_address}, Вес: ${order.weight}, Дата: ${order.date}`;
+            orderList.appendChild(listItem);
+        });
+    }
+
+    function sortTable() {
+        displayOrders();
+    }
+
+    function filterTable() {
+        displayOrders();
+    }
+
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const xmlString = e.target.result;
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                const ordersList = xmlDoc.getElementsByTagName("order");
+
+                orders.length = 0;
+
+                for (let i = 0; i < ordersList.length; i++) {
+                    const order = ordersList[i];
+                    const orderData = {
+                        order_id: order.querySelector("id").textContent,
+                        delivery_address: order.querySelector("address").textContent,
+                        weight: order.querySelector("weight").textContent,
+                        date: order.getAttribute("date")
+                    };
+                    orders.push(orderData);
+                }
+
+                displayOrders();
+
+                // Скрыть <ul id="orderList">
+                const orderList = document.getElementById("orderList");
+                orderList.style.display = "none";
+            };
+
+            reader.readAsText(file);
+        }
+    }
+</script>
+
+<!-- Добавлен инпут для загрузки XML файла -->
+<input type="file" id="fileInput" accept=".xml" onchange="handleFileSelect(event)">
+</body>
+</html>

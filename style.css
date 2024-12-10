@@ -1,0 +1,174 @@
+.container {
+    border: 1px solid black;
+    padding: 2cm 1cm 2cm 3cm;
+    margin-bottom: 1.5cm;
+    background-color: lightgray;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14pt;
+    text-indent: 18pt;
+}
+    .container p.first-paragraph {
+        margin-top: 0;
+    }
+    .container img {
+        max-width: 100%;
+        height: auto;
+        float: left;
+        margin: 0 20px 20px 0;
+    }
+
+canvas {
+    border: 1px solid black;
+   
+}
+
+.delivery-text {
+    font-size: 14pt;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.styled-table th, .styled-table td {
+    border: 1px solid black; 
+    padding: 8px; 
+    text-align: left; 
+}
+
+
+    .styled-table thead th:nth-child(2n+1) {
+        background-color: lightgrey;
+    }
+    .styled-table thead th:nth-child(2n) {
+        background-color: white;
+    }
+
+    .styled-table tbody tr td:nth-child(2n+1) {
+        background-color: lightgrey;
+    }
+
+    .styled-table tbody tr td:nth-child(2n) {
+        background-color: white;
+    }
+
+h1 {
+    color: darkgray;
+}
+        
+nav {
+    background-color: #333; 
+}
+
+ul {
+    list-style-type: none; 
+    padding: 0; 
+}
+
+li {
+    display: inline; 
+    margin-right: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff; 
+    font-weight: bold; 
+    margin-right: 20px;
+}
+a:hover {
+    color: #ff6600;
+}
+a:link{
+    color: white;
+}
+a:visited{
+    color: lightslategray;
+}
+
+header {
+    text-align: center; 
+}
+
+footer {
+    text-align: center; 
+    background-color: #333; 
+    color: #fff; 
+    padding: 0px 0; 
+}
+#animation-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+#package {
+    width: 30px;
+    height: 20px;
+    background-color: burlywood;
+    position: absolute;
+    border: 1px solid black;
+    animation: move 1s linear 0s 1 normal forwards, fadeOut 1s linear 0s 1 normal forwards; 
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+}
+
+@keyframes move {
+    0% {
+        left:  0px;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.p {
+    font-style: normal;
+    font-size: 16pt;
+}
+    p {
+        font-style: italic;
+        font-size: 16pt;
+    }
+
+    #tarif, h2 {
+        color: mediumpurple;
+        text-align: center !important;
+    }
+
+    #tarif-text {
+        font-size: 20pt;
+        color: black !important;
+    }
+
+
+    .myTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .myTable tr, .myTable td {
+        border: 1px solid black; 
+        padding: 8px; 
+        text-align: left; 
+    }
+
+
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: #2ecc71;
+        margin: 10px;
+        cursor: pointer;
+      }

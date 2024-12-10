@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="backButton">Назад</button>
+    <header>
+        <h1>Контакты</h1>
+    </header>
+    <section>
+        <h2>Наш адрес:</h2>
+        <p>Адрес: Улица Винилова , 123, Город Астана, Страна Казахстан </p>
+    </section>
+    <section>
+        <h2>Как нас найти:</h2>
+        <!-- Вставьте карту или инструкции для поиска -->
+    </section>
+    <section>
+        <h2>Наши контактные данные:</h2>
+        <p>Телефон: +7 (777) 111-1111</p>
+    </section>
+    <footer>
+        <p>Мы всегда готовы вас услышать!</p>
+    </footer>
+
+    <table id="myTable">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    
+    <button id="generateButton">Генерировать</button>
+    
+    <script>
+         document.addEventListener('DOMContentLoaded', function () {
+        var table = document.getElementById('myTable');
+        var button = document.getElementById('generateButton');
+
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 9) + 1;
+        }
+
+        function updateRow(rowElement) {
+            var rowSum = 0;
+
+            for (var j = 0, col; col = rowElement.cells[j]; j++) {
+                var randomNumber = generateRandomNumber();
+                col.textContent = randomNumber;
+
+                // В последнюю ячейку выводим и сгенерированную цифру, и сумму цифр
+                if (j === rowElement.cells.length - 1) {
+                    rowSum += randomNumber;
+                    col.textContent = `${randomNumber}, Сумма: ${rowSum}`;
+                } else {
+                    rowSum += randomNumber;
+                }
+            }
+        }
+
+        button.addEventListener('click', function () {
+            var rows = table.getElementsByTagName('tr');
+
+            for (var i = 0; i < rows.length; i++) {
+                updateRow(rows[i]);
+            }
+        });
+    });
+    </script>
+
+
+
+
+<script>
+    document.getElementById('backButton').addEventListener('click', function() {
+    // Перейти на одну страницу назад
+    history.back();
+});
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>
